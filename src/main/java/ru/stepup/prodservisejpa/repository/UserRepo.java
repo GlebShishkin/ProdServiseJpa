@@ -19,14 +19,8 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @EntityGraph(value="User.with-products")
     List<User> findByUserNameLike(String userName);
 
-/*  ????????????????????????
-    // дает ошибку: Validation failed for query for method
+    // в JPQL нужно обращаьбся к объекту (User) а не к таблице (users), иначе получается ошибка: Validation failed for query for method
     @EntityGraph(value="User.with-products")
-    @Query("select * from users u where u.id = ?1")
+    @Query("select u from User u where u.id = ?1")
     User findByUserId(Long userid);
-*/
-
-    @Query(value = "select * from users u where u.id = ?1", nativeQuery = true)
-    User findByUserId(Long userid);
-
 }
